@@ -1,6 +1,7 @@
 NAME = philosophers
 
-SRC = philosophers.c	\
+SRC = utils.c			\
+		philosophers.c	\
 
 OBJS = $(SRC:.c=.o)
 
