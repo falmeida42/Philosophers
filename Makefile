@@ -3,15 +3,15 @@ NAME = philosophers
 SRC = utils.c			\
 		philosophers.c	\
 
-OBJS = $(SRC:.c=.o)
+FLAGS = -Werror -Wextra -Wall -fsanitize=address
 
-$(NAME): $(OBJS)
-	gcc $(OBJS) -pthread -o $(NAME)
+$(NAME):
+	gcc $(SRC) $(FLAGS) -pthread -o $(NAME)
 
 all : $(NAME)
 
 clean:
-	/bin/rm -f $(OBJS) $(OBJSB)
+	/bin/rm -f
 
 fclean: clean
 	/bin/rm -f $(NAME)
