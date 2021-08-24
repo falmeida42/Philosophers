@@ -6,9 +6,19 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 12:21:51 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/23 12:21:53 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/24 22:09:06 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "philosophers.h"
+
+uint64_t get_time(void)
+{
+	static struct timeval tv;
+
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * (uint64_t)1000) + (tv.tv_usec / 1000));
+}
 
 int	ft_atoi(const char *str)
 {

@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 11:24:47 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/24 20:20:43 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/24 22:16:21 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,25 @@ typedef struct	s_state {
 	t_philos	*philos;
 }				t_state;
 
+//routine.c
+void	check_satisfied(t_state *philo);
+void	thinking(t_state *philo);
+void	sleeping(t_state *philo);
+void	eating(t_state *philo);
+//routine.c
 
-
+//utils.c
 int	ft_atoi(const char *str);
+uint64_t get_time(void);
+//utils.c
+
+//checks.c
+void	check_satisfied(t_state *philo);
+void	check_die(t_state *philo);
+//checks.c
+
+//forks.c
+
+//forks.c
 
 #endif

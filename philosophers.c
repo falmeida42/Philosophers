@@ -6,19 +6,11 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 11:28:02 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/24 22:03:36 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/24 22:10:24 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-uint64_t get_time(void)
-{
-	static struct timeval tv;
-
-	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * (uint64_t)1000) + (tv.tv_usec / 1000));
-}
 
 void	init_philosopher(t_state *state)
 {
@@ -52,77 +44,6 @@ void	init(t_state *state, int argc, char **argv)
 		state->eat_rep = 0;
 	state->philos = malloc(sizeof(t_philos) * state->n_philos);
 	init_philosopher(state);
-}
-
-void	check_die(t_state *philo)
-{
-	int	current;
-
-	current = get_time() - philo->t_start;
-	if (philo->philos->last_eat + philo->t_die < current)
-	{
-		printf("[%d]\t X\t is die\n", current);
-		exit (0);
-	}
-}
-
-void	thinking(t_state *philo)
-{
-	int	current;
-	int	thinking;
-
-	current = get_time() - philo->t_start;
-	thinking = current;
-	printf("[%d]\t X\t is thinking\n", current);
-	while (current <  thinking + philo->t_sleep)
-		current = get_time() - philo->t_start;
-	check_die(philo);
-}
-
-void	sleeping(t_state *philo)
-{
-	int	current;
-	int	sleeping;
-
-	current = get_time() - philo->t_start;
-	sleeping = current;
-	printf("[%d]\t X\t is sleeping\n", current);
- 	while (current < sleeping + philo->t_sleep)
-	current = get_time() - philo->t_start;
-	check_die(philo);
-	thinking(philo);
-}
-
-void	check_satisfied(t_state *philo)
-{
-	int	current;
-
-	current = get_time() - philo->t_start;
-	if (philo->philos->n_eat == philo->eat_rep)
-	{
-		printf("[%d]\t X\t is satisfied\n", current);
-		exit (0);
-	}
-}
-
-void	eating(t_state *philo)
-{
-	int	current;
-	int	eating;
-	int time;
-
-	current = get_time() - philo->t_start;
-	eating = current;
-	philo->philos->last_eat = current;
-	while (current < eating + philo->t_eat)
-	{
-		current = get_time() - philo->t_start;
-		time = get_time();
-	}
-	check_die(philo);
-	philo->philos->n_eat++;
-	check_satisfied(philo);
-	sleeping(philo);
 }
 
 void	*routine(void *arg)

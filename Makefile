@@ -2,6 +2,9 @@ NAME = philosophers
 
 SRC = utils.c			\
 		philosophers.c	\
+		routine.c		\
+		checks.c		\
+		forks.c			\
 
 FLAGS = -Werror -Wextra -Wall -fsanitize=address
 
