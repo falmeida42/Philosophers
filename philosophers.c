@@ -6,12 +6,19 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 11:28:02 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/24 20:31:36 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/24 22:03:36 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+uint64_t get_time(void)
+{
+	static struct timeval tv;
+
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * (uint64_t)1000) + (tv.tv_usec / 1000));
+}
 
 void	init_philosopher(t_state *state)
 {
@@ -45,14 +52,6 @@ void	init(t_state *state, int argc, char **argv)
 		state->eat_rep = 0;
 	state->philos = malloc(sizeof(t_philos) * state->n_philos);
 	init_philosopher(state);
-}
-
-uint64_t get_time(void)
-{
-	static struct timeval tv;
-
-	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * (uint64_t)1000) + (tv.tv_usec / 1000));
 }
 
 void	check_die(t_state *philo)
@@ -110,13 +109,16 @@ void	eating(t_state *philo)
 {
 	int	current;
 	int	eating;
+	int time;
 
 	current = get_time() - philo->t_start;
 	eating = current;
 	philo->philos->last_eat = current;
-	printf("[%d]\t X\t is eating\n", current);
 	while (current < eating + philo->t_eat)
+	{
 		current = get_time() - philo->t_start;
+		time = get_time();
+	}
 	check_die(philo);
 	philo->philos->n_eat++;
 	check_satisfied(philo);
@@ -125,22 +127,23 @@ void	eating(t_state *philo)
 
 void	*routine(void *arg)
 {
+	t_state *state = (t_state *)arg;
+
 	while (1)
-	eating(arg);
+		eating(state);
 	return (0);
 }
 
 int	main(int argc, char **argv)
 {
-	t_state		state;
 	pthread_t	philo;
+	t_state		state;
 
 	if (argc < 5 || argc > 6)
 		return (1);
 	init(&state, argc, argv);
 	state.t_start = get_time();
-	state.t_end = get_time() - state.t_start;
-	pthread_create(&philo, NULL, &routine, (void *)&state);
-
+	pthread_create(&philo, NULL, &routine, &state);
+	pthread_join(philo, NULL);
 	return (0);
 }
