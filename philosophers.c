@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 11:28:02 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/24 22:10:24 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/25 21:05:47 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,11 @@ void	*routine(void *arg)
 	t_state *state = (t_state *)arg;
 
 	while (1)
+	{
+		pick_fork(state, state->philos->fork_l);
+		pick_fork(state, state->philos->fork_r);
 		eating(state);
+	}
 	return (0);
 }
 
@@ -64,6 +68,7 @@ int	main(int argc, char **argv)
 		return (1);
 	init(&state, argc, argv);
 	state.t_start = get_time();
+	init_forks(&state);
 	pthread_create(&philo, NULL, &routine, &state);
 	pthread_join(philo, NULL);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 22:06:53 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/24 22:13:15 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/25 21:06:13 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	eating(t_state *philo)
 		current = get_time() - philo->t_start;
 		time = get_time();
 	}
+	release_fork(philo, philo->philos->fork_l);
+	release_fork(philo, philo->philos->fork_r);
 	check_die(philo);
 	philo->philos->n_eat++;
 	check_satisfied(philo);

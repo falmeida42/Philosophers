@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 11:24:47 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/24 22:16:21 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/25 21:04:44 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <sys/time.h>
 # include <pthread.h>
+# include <stdbool.h>
 
 typedef struct	s_philos {
 	int	position;
@@ -41,6 +42,7 @@ typedef struct	s_state {
 	int		t_eat;
 	int		t_sleep;
 	int		eat_rep;
+	bool	*forks;
 	t_philos	*philos;
 }				t_state;
 
@@ -62,7 +64,9 @@ void	check_die(t_state *philo);
 //checks.c
 
 //forks.c
-
+void	init_forks(t_state *philo);
+void	pick_fork(t_state *philo, int hand);
+void	release_fork(t_state *philo, int hand);
 //forks.c
 
 #endif
