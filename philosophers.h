@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 11:24:47 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/25 21:04:44 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/25 21:13:24 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct	s_philos {
 	int	think;
 	int	n_eat;
 	int	last_eat;
+	int	n_forks;
 } t_philos;
 
 typedef struct	s_state {

@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 22:16:28 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/25 21:04:36 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/25 21:14:22 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	pick_fork(t_state *philo, int hand)
 	{
 		printf("[%d]\t X\t has taken a fork\n", current);
 		philo->forks[hand] = 0;
+		philo->philos->n_forks++;
 	}
 }
 
@@ -45,5 +46,6 @@ void	release_fork(t_state *philo, int hand)
 	{
 		printf("[%d]\t X\t has release a fork\n", current);
 		philo->forks[hand] = 1;
+		philo->philos->n_forks--;
 	}
 }

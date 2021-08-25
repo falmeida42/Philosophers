@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 11:28:02 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/25 21:05:47 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/25 21:15:57 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	init_philosopher(t_state *state)
 		state->philos[i].sleep = 0;
 		state->philos[i].think = 0;
 		state->philos[i].n_eat = 0;
+		state->philos[i].n_forks = 0;
 		i++;
 	}
 }
@@ -55,6 +56,7 @@ void	*routine(void *arg)
 		pick_fork(state, state->philos->fork_l);
 		pick_fork(state, state->philos->fork_r);
 		eating(state);
+		check_die(state);
 	}
 	return (0);
 }
