@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 11:24:47 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/26 18:49:20 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/26 18:58:18 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct	s_philo {
 
 typedef struct	s_state {
 
-	int		t_start;
+	uint64_t		t_start;
 	int		t_end;
 	int		n_philos;
 	int		t_die;

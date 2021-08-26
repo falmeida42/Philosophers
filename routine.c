@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 22:06:53 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/26 18:50:01 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/26 19:02:41 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	eating(t_philo *philo)
 	int	eating;
 	int time;
 
-	//if (philo->n_forks < 2)
+	//if (philo.n_forks < 2)
 	//	return ;
 	current = get_time() - state.t_start;
 	eating = current;
@@ -56,8 +56,8 @@ void	eating(t_philo *philo)
 		current = get_time() - state.t_start;
 		time = get_time();
 	}
-	//release_fork(philo, philo->fork_l);
-	//release_fork(philo, philo->fork_r);
+	//release_fork(philo, philo.fork_l);
+	//release_fork(philo, philo.fork_r);
 	check_die(philo);
 	philo->n_eat++;
 	check_satisfied(philo);
