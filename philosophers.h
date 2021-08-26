@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 11:24:47 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/26 19:41:39 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/26 19:55:00 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct	s_state {
 	int		t_sleep;
 	int		eat_rep;
 	bool	*forks;
+	int		all_satisfated;
 	t_philo	*philos;
 	pthread_mutex_t	lock;
 }				t_state;

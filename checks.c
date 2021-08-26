@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 22:09:49 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/26 19:17:00 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/26 19:57:02 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ void	check_satisfied(t_philo *philo)
 	if (philo->n_eat == state.eat_rep)
 	{
 		printf("[%d]\t %d\t is satisfied\n", current, philo->position);
-		exit (0);
+		state.all_satisfated--;
 	}
+	if (state.all_satisfated == 0)
+		exit(0);
 }
 
 void	check_die(t_philo *philo)

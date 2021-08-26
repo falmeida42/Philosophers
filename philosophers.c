@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 11:28:02 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/26 19:44:49 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/26 21:18:45 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	init(t_state *state, int argc, char **argv)
 		state->eat_rep = 0;
 	state->philos = malloc(sizeof(t_philo) * state->n_philos);
 	init_philosopher(state);
+	state->all_satisfated = state->n_philos;
 }
 
 void	*routine(void *arg)
