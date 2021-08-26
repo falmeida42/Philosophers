@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 11:28:02 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/26 17:53:03 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/26 18:50:13 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,20 @@ void	init(t_state *state, int argc, char **argv)
 		state->eat_rep = ft_atoi(argv[5]);
 	else
 		state->eat_rep = 0;
-	state->philos = malloc(sizeof(t_philos) * state->n_philos);
+	state->philos = malloc(sizeof(t_philo) * state->n_philos);
 	init_philosopher(state);
 }
 
 void	*routine(void *arg)
 {
-	t_state *state = (t_state *)arg;
+	t_philo *philo = (t_philo *)arg;
 
 	while (1)
 	{
-		pick_fork(state, state->philos->fork_l);
-		pick_fork(state, state->philos->fork_r);
-		eating(state);
-		check_die(state);
+		//pick_fork(philo, philo->fork_l);
+		//pick_fork(philo, philo->fork_r);
+		eating(philo);
+		check_die(philo);
 	}
 	return (0);
 }
@@ -77,7 +77,7 @@ int	main(int argc, char **argv)
 	i = 0;
 	while (i < state.n_philos)
 	{
-		pthread_create(&philo[i], NULL, &routine, &state);
+		pthread_create(&philo[i], NULL, &routine, &state.philos[i]);
 		i++;
 	}
 	i = 0;
