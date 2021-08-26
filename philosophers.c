@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 11:28:02 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/25 21:15:57 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/26 17:53:03 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,28 @@ void	*routine(void *arg)
 
 int	main(int argc, char **argv)
 {
-	pthread_t	philo;
 	t_state		state;
+	pthread_t	*philo;
+	int			i;
 
 	if (argc < 5 || argc > 6)
 		return (1);
+	philo = NULL;
 	init(&state, argc, argv);
 	state.t_start = get_time();
 	init_forks(&state);
-	pthread_create(&philo, NULL, &routine, &state);
-	pthread_join(philo, NULL);
+	philo = malloc(sizeof(pthread_t) * state.n_philos);
+	i = 0;
+	while (i < state.n_philos)
+	{
+		pthread_create(&philo[i], NULL, &routine, &state);
+		i++;
+	}
+	i = 0;
+	while (i < state.n_philos)
+	{
+		pthread_join(philo[i], NULL);
+		i++;
+	}
 	return (0);
 }

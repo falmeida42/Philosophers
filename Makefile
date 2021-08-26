@@ -6,7 +6,7 @@ SRC = utils.c			\
 		checks.c		\
 		forks.c			\
 
-FLAGS = -Werror -Wextra -Wall -fsanitize=address
+FLAGS = -Werror -Wextra -Wall
 
 $(NAME):
 	gcc $(SRC) $(FLAGS) -pthread -o $(NAME)
