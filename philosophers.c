@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 11:28:02 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/26 18:58:55 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/26 19:44:49 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	init_philosopher(t_state *state)
 		state->philos[i].think = 0;
 		state->philos[i].n_eat = 0;
 		state->philos[i].n_forks = 0;
+		state->philos[i].init = 0;
 		i++;
 	}
 }
@@ -53,8 +54,15 @@ void	*routine(void *arg)
 
 	while (1)
 	{
-		//pick_fork(philo, philo->fork_l);
-		//pick_fork(philo, philo->fork_r);
+		if (philo->init == 0)
+		{
+			while (philo->n_forks != 2)
+			{
+				pick_fork(philo, philo->fork_l);
+				pick_fork(philo, philo->fork_r);
+			}
+			philo->init++;
+		}
 		eating(philo);
 		check_die(philo);
 	}
@@ -71,7 +79,7 @@ int	main(int argc, char **argv)
 	philo = NULL;
 	init(&state, argc, argv);
 	state.t_start = get_time();
-
+	pthread_mutex_init(&state.lock, NULL);
 	init_forks(state);
 	philo = malloc(sizeof(pthread_t) * state.n_philos);
 	i = 0;
