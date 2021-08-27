@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/27 17:57:47 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/27 21:39:25 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/27 21:40:16 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ void	printer(t_philo *philo, int current, char print, int hand)
 		else if (print == 'd')
 			printf("[%d]\t %d\t is die\n", current, philo->position);
 		else if (print == 'f')
-			printf("[%d]\t %d\t has taken a fork %d\n", current, philo->position, hand + 1);
+			printf("[%d]\t %d\t has taken a fork %d\n", current,
+				 philo->position, hand + 1);
 		else if (print == 'r')
-			printf("[%d]\t %d\t has release a fork %d\n", current, philo->position, hand + 1);
+			printf("[%d]\t %d\t has release a fork %d\n", current,
+				philo->position, hand + 1);
 	}
 }

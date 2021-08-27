@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/27 21:31:22 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/27 21:34:43 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/27 21:46:29 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,29 +36,33 @@ void	init_philosopher(t_state *state, t_philo *philo)
 	}
 }
 
+void	start_pick_fork(t_philo *philo)
+{
+	if (philo->position % 2 > 0)
+	{
+		pick_fork(philo, philo->fork_r);
+		pick_fork(philo, philo->fork_l);
+	}
+	else
+	{
+		usleep(100);
+		pick_fork(philo, philo->fork_l);
+		pick_fork(philo, philo->fork_r);
+	}
+	check_die(philo);
+}
+
 void	*routine(void *arg)
 {
-	t_philo	*philo = (t_philo *)arg;
+	t_philo	*philo;
 
+	philo = (t_philo *)arg;
 	while (1)
 	{
 		if (philo->init == 0)
 		{
 			while (philo->n_forks != 2)
-			{
-				if (philo->position % 2 > 0)
-				{
-					pick_fork(philo, philo->fork_r);
-					pick_fork(philo, philo->fork_l);
-				}
-				else
-				{
-					usleep(100);
-					pick_fork(philo, philo->fork_l);
-					pick_fork(philo, philo->fork_r);
-				}
-				check_die(philo);
-			}
+				start_pick_fork(philo);
 			philo->init++;
 		}
 		eating(philo);
@@ -96,17 +100,11 @@ int	main(int argc, char **argv)
 	philo = malloc(sizeof(t_philo) * state.n_philos);
 	init_philosopher(&state, philo);
 	philos = malloc(sizeof(pthread_t) * state.n_philos);
-	i = 0;
-	while (i < state.n_philos)
-	{
+	i = -1;
+	while (++i < state.n_philos)
 		pthread_create(&philos[i], NULL, &routine, &philo[i]);
-		i++;
-	}
-	i = 0;
-	while (i < state.n_philos)
-	{
+	i = -1;
+	while (++i < state.n_philos)
 		pthread_join(philos[i], NULL);
-		i++;
-	}
 	return (0);
 }
