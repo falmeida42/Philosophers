@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 11:28:02 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/27 16:23:23 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/27 18:29:35 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	init_philosopher(t_state *state)
 		state->philos[i].n_eat = 0;
 		state->philos[i].n_forks = 0;
 		state->philos[i].init = 0;
+		state->philos[i].can_print = true;
 		i++;
 	}
 }
@@ -43,7 +44,7 @@ void	init(t_state *state, int argc, char **argv)
 	if (argc > 5)
 		state->eat_rep = ft_atoi(argv[5]);
 	else
-		state->eat_rep = 0;
+		state->eat_rep = -1;
 	state->philos = malloc(sizeof(t_philo) * state->n_philos);
 	init_philosopher(state);
 	state->all_satisfated = state->n_philos;

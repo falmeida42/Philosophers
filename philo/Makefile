@@ -1,11 +1,12 @@
-NAME = philosophers
+NAME = philo
 
 SRC = utils.c			\
 		philosophers.c	\
 		routine.c		\
 		checks.c		\
 		forks.c			\
-
+		printer.c		\
+		
 FLAGS = -Werror -Wextra -Wall
 
 $(NAME):

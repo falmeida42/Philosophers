@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 22:06:53 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/27 16:30:49 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/27 18:38:13 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ void	thinking(t_philo *philo)
 
 	current = get_time() - state.t_start;
 	thinking = current;
-	printf("[%d]\t %d\t is thinking\n", current, philo->position);
-
+	printer(philo, current, 't', 0);
 	while (philo->n_forks < 2)
 	{
 		if (philo->position % 2 > 0)
@@ -30,8 +29,8 @@ void	thinking(t_philo *philo)
 		}
 		else
 		{
-			pick_fork(philo, philo->fork_l);
 			pick_fork(philo, philo->fork_r);
+			pick_fork(philo, philo->fork_l);
 		}
 		check_die(philo);
 	}
@@ -44,7 +43,7 @@ void	sleeping(t_philo *philo)
 
 	current = get_time() - state.t_start;
 	sleeping = current;
-	printf("[%d]\t %d\t is sleeping\n", current, philo->position);
+	printer(philo, current, 's', 0);
  	while (current < sleeping + state.t_sleep)
 	current = get_time() - state.t_start;
 	check_die(philo);
@@ -61,17 +60,17 @@ void	eating(t_philo *philo)
 		return ;
 	current = get_time() - state.t_start;
 	eating = current;
-	printf("[%d]\t %d\t is eating\n", current, philo->position);
+	printer(philo, current, 'e', 0);
 	philo->last_eat = current;
 	while (current < eating + state.t_eat)
 	{
 		current = get_time() - state.t_start;
 		time = get_time();
 	}
+	check_satisfied(philo);
 	release_fork(philo, philo->fork_l);
 	release_fork(philo, philo->fork_r);
 	check_die(philo);
 	philo->n_eat++;
-	check_satisfied(philo);
 	sleeping(philo);
 }

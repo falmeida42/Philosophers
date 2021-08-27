@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 11:24:47 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/27 16:39:35 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/27 18:37:31 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct	s_philo {
 	int	last_eat;
 	int	n_forks;
 	int	init;
+	bool	can_print;
 } t_philo;
 
 typedef struct	s_state {
@@ -73,5 +74,8 @@ void	init_forks();
 void	pick_fork(t_philo *philo, int hand);
 void	release_fork(t_philo *philo, int hand);
 //forks.c
+
+void	printer(t_philo *philo, int current, char print, int hand);
+
 
 #endif
