@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 11:28:02 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/27 20:41:04 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/27 20:57:05 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	*routine(void *arg)
 				}
 				else
 				{
+					usleep(100);
 					pick_fork(philo, philo->fork_l);
 					pick_fork(philo, philo->fork_r);
 				}
