@@ -6,15 +6,16 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 22:16:28 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/27 18:39:21 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/27 20:39:30 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	init_forks()
+void	init_forks(void)
 {
 	int	i;
+
 	i = 0;
 	state.forks = malloc(sizeof(bool) * state.n_philos);
 	while (i < state.n_philos)

@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 11:28:02 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/27 18:29:35 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/27 20:41:04 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 void	init_philosopher(t_state *state)
 {
-	int i;
+	int	i;
 
 	i = 0;
-
 	while (i < state->n_philos)
 	{
 		state->philos[i].position = i + 1;
@@ -52,7 +51,7 @@ void	init(t_state *state, int argc, char **argv)
 
 void	*routine(void *arg)
 {
-	t_philo *philo = (t_philo *)arg;
+	t_philo	*philo = (t_philo *)arg;
 
 	while (1)
 	{
@@ -60,8 +59,17 @@ void	*routine(void *arg)
 		{
 			while (philo->n_forks != 2)
 			{
-				pick_fork(philo, philo->fork_l);
-				pick_fork(philo, philo->fork_r);
+				if (philo->position % 2 > 0)
+				{
+					pick_fork(philo, philo->fork_r);
+					pick_fork(philo, philo->fork_l);
+				}
+				else
+				{
+					pick_fork(philo, philo->fork_l);
+					pick_fork(philo, philo->fork_r);
+				}
+				check_die(philo);
 			}
 			philo->init++;
 		}
@@ -85,7 +93,6 @@ int	main(int argc, char **argv)
 	init_forks(state);
 	philo = malloc(sizeof(pthread_t) * state.n_philos);
 	i = 0;
-
 	while (i < state.n_philos)
 	{
 		pthread_create(&philo[i], NULL, &routine, &state.philos[i]);

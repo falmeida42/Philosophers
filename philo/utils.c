@@ -6,15 +6,15 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 12:21:51 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/26 21:17:30 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/27 20:44:20 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-uint64_t get_time(void)
+uint64_t	get_time(void)
 {
-	static struct timeval tv;
+	static struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * (uint64_t)1000) + (tv.tv_usec / 1000));
@@ -22,8 +22,8 @@ uint64_t get_time(void)
 
 int	ft_atoi(const char *str)
 {
-	int nome;
-	int sinal;
+	int	nome;
+	int	sinal;
 
 	nome = 0;
 	sinal = 1;
