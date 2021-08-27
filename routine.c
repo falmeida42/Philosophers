@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 22:06:53 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/26 19:39:33 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/27 16:30:49 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,19 @@ void	thinking(t_philo *philo)
 	current = get_time() - state.t_start;
 	thinking = current;
 	printf("[%d]\t %d\t is thinking\n", current, philo->position);
+
 	while (philo->n_forks < 2)
 	{
-		pick_fork(philo, philo->fork_l);
-		pick_fork(philo, philo->fork_r);
+		if (philo->position % 2 > 0)
+		{
+			pick_fork(philo, philo->fork_l);
+			pick_fork(philo, philo->fork_r);
+		}
+		else
+		{
+			pick_fork(philo, philo->fork_l);
+			pick_fork(philo, philo->fork_r);
+		}
 		check_die(philo);
 	}
 }
@@ -52,8 +61,8 @@ void	eating(t_philo *philo)
 		return ;
 	current = get_time() - state.t_start;
 	eating = current;
-	philo->last_eat = current;
 	printf("[%d]\t %d\t is eating\n", current, philo->position);
+	philo->last_eat = current;
 	while (current < eating + state.t_eat)
 	{
 		current = get_time() - state.t_start;
