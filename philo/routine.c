@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 22:06:53 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/27 20:58:50 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/27 21:12:38 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	thinking(t_philo *philo)
 	int	current;
 	int	thinking;
 
-	current = get_time() - state.t_start;
+	current = get_time() - philo->state->t_start;
 	thinking = current;
 	printer(philo, current, 't', 0);
 	while (philo->n_forks < 2)
@@ -41,11 +41,11 @@ void	sleeping(t_philo *philo)
 	int	current;
 	int	sleeping;
 
-	current = get_time() - state.t_start;
+	current = get_time() - philo->state->t_start;
 	sleeping = current;
 	printer(philo, current, 's', 0);
-	while (current < sleeping + state.t_sleep)
-		current = get_time() - state.t_start;
+	while (current < sleeping + philo->state->t_sleep)
+		current = get_time() - philo->state->t_start;
 	check_die(philo);
 	thinking(philo);
 }
@@ -58,13 +58,13 @@ void	eating(t_philo *philo)
 
 	if (philo->n_forks < 2)
 		return ;
-	current = get_time() - state.t_start;
+	current = get_time() - philo->state->t_start;
 	eating = current;
 	printer(philo, current, 'e', 0);
 	philo->last_eat = current;
-	while (current < eating + state.t_eat)
+	while (current < eating + philo->state->t_eat)
 	{
-		current = get_time() - state.t_start;
+		current = get_time() - philo->state->t_start;
 		time = get_time();
 	}
 	check_satisfied(philo);

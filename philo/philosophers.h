@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 11:24:47 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/27 18:37:31 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/27 21:33:11 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,21 @@
 # include <pthread.h>
 # include <stdbool.h>
 
+typedef struct	s_state {
+
+	uint64_t		t_start;
+	int		t_end;
+	int		n_philos;
+	int		t_die;
+	int		t_eat;
+	int		t_sleep;
+	int		eat_rep;
+	bool	*forks;
+	int		all_satisfated;
+}				t_state;
+
 typedef struct	s_philo {
+	pthread_mutex_t	lock;
 	int	position;
 	int	eat;
 	int	t_limit;
@@ -34,24 +48,9 @@ typedef struct	s_philo {
 	int	n_forks;
 	int	init;
 	bool	can_print;
+	t_state	*state;
 } t_philo;
 
-typedef struct	s_state {
-
-	uint64_t		t_start;
-	int		t_end;
-	int		n_philos;
-	int		t_die;
-	int		t_eat;
-	int		t_sleep;
-	int		eat_rep;
-	bool	*forks;
-	int		all_satisfated;
-	t_philo	*philos;
-	pthread_mutex_t	lock;
-}				t_state;
-
-t_state state;
 //routine.c
 void	check_satisfied(t_philo *philo);
 void	thinking(t_philo *philo);
@@ -70,7 +69,7 @@ void	check_die(t_philo *philo);
 //checks.c
 
 //forks.c
-void	init_forks();
+void	init_forks(t_state *state);
 void	pick_fork(t_philo *philo, int hand);
 void	release_fork(t_philo *philo, int hand);
 //forks.c

@@ -5,48 +5,35 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/23 11:28:02 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/27 20:57:05 by falmeida         ###   ########.fr       */
+/*   Created: 2021/08/27 21:31:22 by falmeida          #+#    #+#             */
+/*   Updated: 2021/08/27 21:34:43 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	init_philosopher(t_state *state)
+void	init_philosopher(t_state *state, t_philo *philo)
 {
 	int	i;
 
 	i = 0;
 	while (i < state->n_philos)
 	{
-		state->philos[i].position = i + 1;
-		state->philos[i].eat = 0;
-		state->philos[i].die = 0;
-		state->philos[i].fork_l = i;
-		state->philos[i].fork_r = (i + 1) % state->n_philos;
-		state->philos[i].sleep = 0;
-		state->philos[i].think = 0;
-		state->philos[i].n_eat = 0;
-		state->philos[i].n_forks = 0;
-		state->philos[i].init = 0;
-		state->philos[i].can_print = true;
+		philo[i].position = i + 1;
+		philo[i].eat = 0;
+		philo[i].die = 0;
+		philo[i].fork_l = i;
+		philo[i].fork_r = (i + 1) % state->n_philos;
+		philo[i].sleep = 0;
+		philo[i].think = 0;
+		philo[i].n_eat = 0;
+		philo[i].n_forks = 0;
+		philo[i].init = 0;
+		philo[i].can_print = true;
+		philo[i].state = state;
+		pthread_mutex_init(&philo[i].lock, NULL);
 		i++;
 	}
-}
-
-void	init(t_state *state, int argc, char **argv)
-{
-	state->n_philos = ft_atoi(argv[1]);
-	state->t_die = ft_atoi(argv[2]);
-	state->t_eat = ft_atoi(argv[3]);
-	state->t_sleep = ft_atoi(argv[4]);
-	if (argc > 5)
-		state->eat_rep = ft_atoi(argv[5]);
-	else
-		state->eat_rep = -1;
-	state->philos = malloc(sizeof(t_philo) * state->n_philos);
-	init_philosopher(state);
-	state->all_satisfated = state->n_philos;
 }
 
 void	*routine(void *arg)
@@ -80,29 +67,45 @@ void	*routine(void *arg)
 	return (0);
 }
 
+void	init(t_state *state, int argc, char **argv)
+{
+	state->n_philos = ft_atoi(argv[1]);
+	state->t_die = ft_atoi(argv[2]);
+	state->t_eat = ft_atoi(argv[3]);
+	state->t_sleep = ft_atoi(argv[4]);
+	if (argc > 5)
+		state->eat_rep = ft_atoi(argv[5]);
+	else
+		state->eat_rep = -1;
+	state->all_satisfated = state->n_philos;
+}
+
 int	main(int argc, char **argv)
 {
-	pthread_t	*philo;
+	t_state		state;
+	pthread_t	*philos;
+	t_philo		*philo;
 	int			i;
 
 	if (argc < 5 || argc > 6)
 		return (1);
-	philo = NULL;
+	philos = NULL;
 	init(&state, argc, argv);
 	state.t_start = get_time();
-	pthread_mutex_init(&state.lock, NULL);
-	init_forks(state);
-	philo = malloc(sizeof(pthread_t) * state.n_philos);
+	init_forks(&state);
+	philo = malloc(sizeof(t_philo) * state.n_philos);
+	init_philosopher(&state, philo);
+	philos = malloc(sizeof(pthread_t) * state.n_philos);
 	i = 0;
 	while (i < state.n_philos)
 	{
-		pthread_create(&philo[i], NULL, &routine, &state.philos[i]);
+		pthread_create(&philos[i], NULL, &routine, &philo[i]);
 		i++;
 	}
 	i = 0;
 	while (i < state.n_philos)
 	{
-		pthread_join(philo[i], NULL);
+		pthread_join(philos[i], NULL);
 		i++;
 	}
 	return (0);
