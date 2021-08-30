@@ -7,7 +7,7 @@ SRC = utils.c			\
 		forks.c			\
 		printer.c		\
 
-FLAGS = -Werror -Wextra -Wall
+FLAGS = -Werror -Wextra -Wall -fsanitize=address
 
 $(NAME):
 	gcc $(SRC) $(FLAGS) -pthread -o $(NAME)

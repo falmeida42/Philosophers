@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 11:24:47 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/30 18:10:40 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/30 18:38:42 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	pick_fork(t_philo *philo, int hand);
 void	release_fork(t_philo *philo, int hand);
 //forks.c
 
-void	printer(t_philo *philo, char print, int hand);
+void	printer(t_philo *philo, char print);
 
 
 #endif

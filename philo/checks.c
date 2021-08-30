@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 22:09:49 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/30 18:17:40 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/30 18:49:30 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	ft_exit(t_philo *philo)
 {
-	philo = NULL;
+	free(philo->state->lock);
+	philo->state->lock = NULL;
 	return (0);
 }
 
@@ -25,7 +26,7 @@ void	check_satisfied(t_philo *philo)
 	current = get_time() - philo->state->t_start;
 	if (philo->n_eat == philo->state->eat_rep)
 	{
-		printer(philo, 'a', 0);
+		printer(philo, 'a');
 		philo->state->all_satisfated--;
 		philo->can_print = false;
 	}
@@ -43,8 +44,10 @@ void	check_die(t_philo *philo)
 	current = get_time() - philo->state->t_start;
 	if (philo->last_eat + philo->state->t_die < current)
 	{
-		printer(philo, 'd', 0);
+		pthread_mutex_lock(&philo->state->die_lock);
+		printer(philo, 'd');
 		ft_exit(philo);
+		pthread_mutex_unlock(&philo->state->die_lock);
 		exit(0);
 	}
 }
