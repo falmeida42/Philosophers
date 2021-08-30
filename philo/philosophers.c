@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/27 21:31:22 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/27 21:46:29 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/30 14:47:59 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	init_philosopher(t_state *state, t_philo *philo)
 		philo[i].init = 0;
 		philo[i].can_print = true;
 		philo[i].state = state;
-		pthread_mutex_init(&philo[i].lock, NULL);
 		i++;
 	}
 }
@@ -82,6 +81,7 @@ void	init(t_state *state, int argc, char **argv)
 	else
 		state->eat_rep = -1;
 	state->all_satisfated = state->n_philos;
+	state->lock = malloc(sizeof(pthread_mutex_t) * state->n_philos);
 }
 
 int	main(int argc, char **argv)
