@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/27 21:31:22 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/30 14:47:59 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/30 17:58:20 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	init_philosopher(t_state *state, t_philo *philo)
 	while (i < state->n_philos)
 	{
 		philo[i].position = i + 1;
-		philo[i].eat = 0;
-		philo[i].die = 0;
 		philo[i].fork_l = i;
 		philo[i].fork_r = (i + 1) % state->n_philos;
 		philo[i].sleep = 0;
@@ -29,6 +27,7 @@ void	init_philosopher(t_state *state, t_philo *philo)
 		philo[i].n_eat = 0;
 		philo[i].n_forks = 0;
 		philo[i].init = 0;
+		philo[i].last_eat = 0;
 		philo[i].can_print = true;
 		philo[i].state = state;
 		i++;
@@ -82,29 +81,29 @@ void	init(t_state *state, int argc, char **argv)
 		state->eat_rep = -1;
 	state->all_satisfated = state->n_philos;
 	state->lock = malloc(sizeof(pthread_mutex_t) * state->n_philos);
+	pthread_mutex_init(&state->die_lock, NULL);
+	pthread_mutex_init(&state->print_lock, NULL);
 }
 
 int	main(int argc, char **argv)
 {
 	t_state		state;
-	pthread_t	*philos;
 	t_philo		*philo;
 	int			i;
 
 	if (argc < 5 || argc > 6)
 		return (1);
-	philos = NULL;
-	init(&state, argc, argv);
 	state.t_start = get_time();
+	init(&state, argc, argv);
 	init_forks(&state);
 	philo = malloc(sizeof(t_philo) * state.n_philos);
 	init_philosopher(&state, philo);
-	philos = malloc(sizeof(pthread_t) * state.n_philos);
 	i = -1;
 	while (++i < state.n_philos)
-		pthread_create(&philos[i], NULL, &routine, &philo[i]);
+		pthread_create(&philo[i].p, NULL, &routine, &philo[i]);
 	i = -1;
 	while (++i < state.n_philos)
-		pthread_join(philos[i], NULL);
+		pthread_join(philo[i].p, NULL);
+	ft_exit(philo);
 	return (0);
 }

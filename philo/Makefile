@@ -6,7 +6,7 @@ SRC = utils.c			\
 		checks.c		\
 		forks.c			\
 		printer.c		\
-		
+
 FLAGS = -Werror -Wextra -Wall
 
 $(NAME):
