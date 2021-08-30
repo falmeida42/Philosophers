@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 11:24:47 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/30 18:38:42 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/30 19:05:32 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ void	check_die(t_philo *philo);
 //checks.c
 
 //forks.c
+int		pick_fork(t_philo *philo, int hand);
 void	init_forks(t_state *state);
-void	pick_fork(t_philo *philo, int hand);
 void	release_fork(t_philo *philo, int hand);
 //forks.c
 

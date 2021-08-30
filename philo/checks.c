@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 22:09:49 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/30 18:49:30 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/30 19:00:48 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ void	check_die(t_philo *philo)
 {
 	int	current;
 
+	pthread_mutex_lock(&philo->state->die_lock);
 	current = get_time() - philo->state->t_start;
 	if (philo->last_eat + philo->state->t_die < current)
 	{
-		pthread_mutex_lock(&philo->state->die_lock);
 		printer(philo, 'd');
 		ft_exit(philo);
-		pthread_mutex_unlock(&philo->state->die_lock);
 		exit(0);
 	}
+	pthread_mutex_unlock(&philo->state->die_lock);
 }

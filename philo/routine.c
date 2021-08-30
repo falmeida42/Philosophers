@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 22:06:53 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/30 18:43:32 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/30 19:08:05 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ void	thinking(t_philo *philo)
 	{
 		if (philo->position % 2 > 0)
 		{
-			pick_fork(philo, philo->fork_l);
-			pick_fork(philo, philo->fork_r);
+			if (pick_fork(philo, philo->fork_r) == 1)
+				pick_fork(philo, philo->fork_l);
 		}
 		else
 		{
-			pick_fork(philo, philo->fork_r);
-			pick_fork(philo, philo->fork_l);
+			if (pick_fork(philo, philo->fork_l) == 1)
+				pick_fork(philo, philo->fork_r);
 		}
 		check_die(philo);
 	}
