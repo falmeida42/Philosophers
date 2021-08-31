@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 22:16:28 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/31 17:03:03 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/31 18:12:01 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	pick_fork(t_philo *philo, int hand)
 
 	pthread_mutex_lock(&philo->state->lock[hand]);
 	current = get_time() - philo->state->t_start;
+	check_satisfied(philo);
 	if (philo->state->forks[hand] == true)
 	{
-		//printf("%d %d has taken a fork %d\n", current, philo->position + 1, hand);
 		printer(philo, 'f');
 		philo->state->forks[hand] = false;
 		philo->n_forks++;

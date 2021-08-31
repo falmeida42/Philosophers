@@ -7,7 +7,7 @@ SRC = utils.c			\
 		forks.c			\
 		printer.c		\
 
-FLAGS = -Werror -Wextra -Wall -g
+FLAGS = -Werror -Wextra -Wall
 
 $(NAME): $(SRC)
 	gcc $(SRC) $(FLAGS) -pthread -o $(NAME)
