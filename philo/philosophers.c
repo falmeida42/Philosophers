@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/27 21:31:22 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/30 19:06:06 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/31 12:53:12 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,19 @@ void	init_philosopher(t_state *state, t_philo *philo)
 
 void	start_pick_fork(t_philo *philo)
 {
+	if (check_die(philo) == 0)
+		return ;
 	if (philo->position % 2 > 0)
 	{
-		if (pick_fork(philo, philo->fork_r) == 1)
-			pick_fork(philo, philo->fork_l);
+		pick_fork(philo, philo->fork_r);
+		pick_fork(philo, philo->fork_l);
 	}
 	else
 	{
 		usleep(100);
-		if (pick_fork(philo, philo->fork_l) == 1)
-			pick_fork(philo, philo->fork_r);
+		pick_fork(philo, philo->fork_l);
+		pick_fork(philo, philo->fork_r);
 	}
-	check_die(philo);
 }
 
 void	*routine(void *arg)
@@ -55,17 +56,23 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	while (1)
+	printf("HELLOW1\n");
+	while (philo->state->is_die == 1)
 	{
 		if (philo->init == 0)
 		{
-			while (philo->n_forks != 2)
+			while (philo->n_forks != 2 && philo->state->is_die == 1)
 				start_pick_fork(philo);
 			philo->init++;
 		}
+		check_die(philo);
+		if (philo->state->is_die == 0)
+			return (0);
 		eating(philo);
 		check_die(philo);
+		//printf("%d\n", philo->state->is_die);
 	}
+	printf("HELLOW\n");
 	return (0);
 }
 
@@ -83,6 +90,7 @@ void	init(t_state *state, int argc, char **argv)
 	state->lock = malloc(sizeof(pthread_mutex_t) * state->n_philos);
 	pthread_mutex_init(&state->die_lock, NULL);
 	pthread_mutex_init(&state->print_lock, NULL);
+	state->is_die = 1;
 }
 
 int	main(int argc, char **argv)
@@ -104,6 +112,7 @@ int	main(int argc, char **argv)
 	i = -1;
 	while (++i < state.n_philos)
 		pthread_join(philo[i].p, NULL);
+	printf("------ HELLO ------\n");
 	ft_exit(philo);
 	return (0);
 }

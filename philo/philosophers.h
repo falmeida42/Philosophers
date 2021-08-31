@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 11:24:47 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/30 19:05:32 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/31 12:53:58 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct	s_state {
 	int		t_sleep;
 	int		eat_rep;
 	bool	*forks;
+	bool	is_die;
 	int		all_satisfated;
 	pthread_mutex_t	die_lock;
 	pthread_mutex_t	print_lock;
@@ -63,14 +64,14 @@ uint64_t get_time(void);
 //utils.c
 
 //checks.c
-int		ft_exit(t_philo *philo);
+void		ft_exit(t_philo *philo);
 void	check_satisfied(t_philo *philo);
-void	check_die(t_philo *philo);
+int		check_die(t_philo *philo);
 //checks.c
 
 //forks.c
-int		pick_fork(t_philo *philo, int hand);
 void	init_forks(t_state *state);
+void	pick_fork(t_philo *philo, int hand);
 void	release_fork(t_philo *philo, int hand);
 //forks.c
 

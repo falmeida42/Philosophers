@@ -6,17 +6,20 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 22:09:49 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/30 19:00:48 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/31 12:57:29 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	ft_exit(t_philo *philo)
+void	ft_exit(t_philo *philo)
 {
 	free(philo->state->lock);
 	philo->state->lock = NULL;
-	return (0);
+	free(philo->state->forks);
+	philo->state->forks = NULL;
+	free(philo);
+	philo = NULL;
 }
 
 void	check_satisfied(t_philo *philo)
@@ -32,22 +35,24 @@ void	check_satisfied(t_philo *philo)
 	}
 	if (philo->state->all_satisfated == 0)
 	{
-		ft_exit(philo);
 		exit(0);
 	}
 }
 
-void	check_die(t_philo *philo)
+int	check_die(t_philo *philo)
 {
 	int	current;
+	int	result;
 
+	result = 1;
 	pthread_mutex_lock(&philo->state->die_lock);
 	current = get_time() - philo->state->t_start;
 	if (philo->last_eat + philo->state->t_die < current)
 	{
 		printer(philo, 'd');
-		ft_exit(philo);
-		exit(0);
+		philo->state->is_die = false;
+		result = 0;
 	}
 	pthread_mutex_unlock(&philo->state->die_lock);
+	return (result);
 }

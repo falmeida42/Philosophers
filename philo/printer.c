@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/27 17:57:47 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/30 18:43:08 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/31 12:50:09 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	printer(t_philo *philo, char print)
 
 	pthread_mutex_lock(&philo->state->print_lock);
 	current = get_time() - philo->state->t_start;
-	if (philo->can_print == true)
+	if (philo->can_print == true && philo->state->is_die == true)
 	{
 		if (print == 't')
 			printf("[%d]\t %d\t is thinking\n", current, philo->position);
