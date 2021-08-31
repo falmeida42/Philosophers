@@ -9,7 +9,7 @@ SRC = utils.c			\
 
 FLAGS = -Werror -Wextra -Wall -g
 
-$(NAME):
+$(NAME): $(SRC)
 	gcc $(SRC) $(FLAGS) -pthread -o $(NAME)
 
 all : $(NAME)

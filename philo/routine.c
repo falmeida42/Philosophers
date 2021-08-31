@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 22:06:53 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/31 14:31:54 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/31 17:17:51 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,11 @@ void	sleeping(t_philo *philo)
 	check_die(philo);
 	if (philo->state->is_die == 0)
 		return ;
+	printer(philo, 's');
 	current = get_time() - philo->state->t_start;
 	sleeping = current;
-	printer(philo, 's');
+	release_fork(philo, philo->fork_l);
+	release_fork(philo, philo->fork_r);
 	while (current < sleeping + philo->state->t_sleep)
 	{
 		current = get_time() - philo->state->t_start;
@@ -81,12 +83,10 @@ void	eating(t_philo *philo)
 		if (philo->state->is_die == 0)
 			return ;
 	}
+	philo->n_eat++;
 	check_satisfied(philo);
-	release_fork(philo, philo->fork_l);
-	release_fork(philo, philo->fork_r);
 	check_die(philo);
 	if (philo->state->is_die == 0)
 		return ;
-	philo->n_eat++;
 	sleeping(philo);
 }

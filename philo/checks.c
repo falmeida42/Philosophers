@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 22:09:49 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/31 14:30:00 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/31 15:35:46 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	check_satisfied(t_philo *philo)
 	current = get_time() - philo->state->t_start;
 	if (philo->n_eat == philo->state->eat_rep)
 	{
-		printer(philo, 'a');
 		philo->state->all_satisfated--;
 		philo->can_print = false;
 	}

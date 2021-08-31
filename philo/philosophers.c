@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/27 21:31:22 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/31 14:29:18 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/31 16:54:32 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	init_philosopher(t_state *state, t_philo *philo)
 	i = 0;
 	while (i < state->n_philos)
 	{
-		philo[i].position = i + 1;
+		philo[i].position = i;
 		philo[i].fork_l = i;
 		philo[i].fork_r = (i + 1) % state->n_philos;
 		philo[i].sleep = 0;
