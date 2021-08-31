@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/27 21:31:22 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/31 12:53:12 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/31 14:29:18 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	printf("HELLOW1\n");
 	while (philo->state->is_die == 1)
 	{
 		if (philo->init == 0)
@@ -70,9 +69,7 @@ void	*routine(void *arg)
 			return (0);
 		eating(philo);
 		check_die(philo);
-		//printf("%d\n", philo->state->is_die);
 	}
-	printf("HELLOW\n");
 	return (0);
 }
 
@@ -99,7 +96,7 @@ int	main(int argc, char **argv)
 	t_philo		*philo;
 	int			i;
 
-	if (argc < 5 || argc > 6)
+	if (argc < 5 || argc > 6 || ft_atoi(argv[1]) == 0)
 		return (1);
 	state.t_start = get_time();
 	init(&state, argc, argv);
@@ -112,7 +109,6 @@ int	main(int argc, char **argv)
 	i = -1;
 	while (++i < state.n_philos)
 		pthread_join(philo[i].p, NULL);
-	printf("------ HELLO ------\n");
 	ft_exit(philo);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/27 17:57:47 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/31 12:50:09 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/31 14:30:28 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	printer(t_philo *philo, char print)
 {
-	int current;
+	int	current;
 
 	pthread_mutex_lock(&philo->state->print_lock);
 	current = get_time() - philo->state->t_start;

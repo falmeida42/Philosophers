@@ -6,7 +6,7 @@
 /*   By: falmeida <falmeida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 22:09:49 by falmeida          #+#    #+#             */
-/*   Updated: 2021/08/31 12:57:29 by falmeida         ###   ########.fr       */
+/*   Updated: 2021/08/31 14:30:00 by falmeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,16 @@
 
 void	ft_exit(t_philo *philo)
 {
+	int	i;
+
+	i = 0;
+	while (i < philo->state->n_philos)
+		pthread_mutex_destroy(&philo->state->lock[i++]);
 	free(philo->state->lock);
 	philo->state->lock = NULL;
 	free(philo->state->forks);
+	pthread_mutex_destroy(&philo->state->die_lock);
+	pthread_mutex_destroy(&philo->state->print_lock);
 	philo->state->forks = NULL;
 	free(philo);
 	philo = NULL;
@@ -35,7 +42,8 @@ void	check_satisfied(t_philo *philo)
 	}
 	if (philo->state->all_satisfated == 0)
 	{
-		exit(0);
+		philo->state->is_die = false;
+		return ;
 	}
 }
 
